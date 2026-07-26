@@ -163,6 +163,13 @@ dialog {
     align-items: center;
 }
 
+.rating--form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* Псевдоэлемент для затемнения фона за окном */
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
@@ -173,7 +180,13 @@ dialog::backdrop {
     display: none;
 }
 
-.auth--button{
+.comment--input{
+    width: 80%;
+    height: 100px;
+    margin: 25px 0;
+}
+
+.add--button{
     width: 100%;
     max-width: 250px;
     padding: 10px;
@@ -186,7 +199,7 @@ dialog::backdrop {
     color: black;
 }
 
-.auth--button:hover{
+.add--button:hover{
     background: white;
     cursor: pointer;
     transition: all 0.3s;
@@ -200,6 +213,32 @@ dialog::backdrop {
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+
+
+.rating-stars {
+  display: flex;
+  flex-direction: row-reverse; /* Разворачиваем, чтобы правильно работал селектор ~ */
+  justify-content: flex-end;
+}
+
+.rating-stars input[type="radio"] {
+  display: none; /* Прячем стандартные кружочки радиокнопок */
+}
+
+.rating-stars label {
+  font-size: 60px;
+  color: #ccc; /* Серые звёзды по умолчанию */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Подсветка звёзд при наведении и выборе */
+.rating-stars label:hover,
+.rating-stars label:hover ~ label,
+.rating-stars input[type="radio"]:checked ~ label {
+  color: #f39c12; /* Золотой цвет */
 }
 
 @media screen and (max-device-width:1100px), screen and (max-width:1100px) {

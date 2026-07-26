@@ -1,6 +1,13 @@
-const modal = document.getElementById('linkModal');
+const modalLink = document.getElementById('linkModal');
 const openBtn = document.getElementById('openModalBtn');
+const modalRating = document.getElementById('ratingModal');
+const openRatingBtn = document.getElementById('openRatingBtn');
+
 
 openBtn.addEventListener('click', () => {
-    modal.showModal();
+    modalLink.showModal();
 });
+
+openRatingBtn.addEventListener('click', ()=>{
+    modalRating.showModal();
+})

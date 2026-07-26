@@ -61,7 +61,7 @@
                     <h2>Отзывы</h2>
                 </div>
 
-                <button class="reviews--public">Оставить отзыв</button>
+                <?if(isset($_SESSION['user_id'])){?> <button class="reviews--public" id="openRatingBtn">Оставить отзыв</button> <?}?>
 
                 <div class="reviews--users--container">
 
@@ -116,6 +116,35 @@
             </form>
         </div>
     </dialog>
+
+    <?if (isset($_SESSION['user_id'])) {?>
+    <dialog id="ratingModal">
+        <div class="modal-content">
+            <h2>Оставить отзыв</h2>
+
+            <form action="" method="post" class="rating--form">
+                    
+                <div class="rating-stars">
+                    <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="Отлично">★</label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Хорошо">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Нормально">★</label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Плохо">★</label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Ужасно">★</label>
+                </div>
+
+                <textarea name="text" required class="comment--input" placeholder="Поделитесь вашим впечатлением..."></textarea>
+
+                <input type="submit" name="addRating" class="add--button" value="Оставить отзыв">
+
+            </form>
+              
+            <!-- Форма с методом dialog нативно закрывает окно при отправке -->
+            <form method="dialog">
+                <button class="close-btn">Закрыть</button>
+            </form>
+        </div>
+    </dialog>
+    <?}?>
     <script src="../assets/js/executor.js"></script>
 </body>
 </html>
