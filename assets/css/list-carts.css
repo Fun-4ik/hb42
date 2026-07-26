@@ -1,0 +1,213 @@
+body{
+    height: 100vh;
+    background: linear-gradient(81deg, #576265 0%, #a5a9a9 14%, #848b8a 44%, #7f898c 56%, #576265 79%, #757a7b 89%, #717e82 100%);
+    background-repeat: no-repeat;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+}
+
+.list--section{
+    width: 60%;
+    min-height: 650px;
+    background-color: #C5DAE6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 35px;
+}
+
+.carts--data{
+    width: 90%;
+    height: 100%;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart--unit{
+    width: 100%;
+    margin: 10px 0;
+    background-color: white;
+    border-radius: 7px;
+    padding: 15px;
+    transition: all 0.3s;
+}
+
+.cart--unit:hover{
+    cursor: pointer;
+    background-color: #adadad;
+    transition: all 0.3s;
+}
+
+.user--contract{
+    width: 550px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input--category, .input--subcategory, .input--description{
+    width: 100%;
+    max-width: 500px;
+    font-size: 20px;
+    padding: 13px 20px;
+    border: 1px solid black;
+    border-radius: 7px;
+}
+
+.input--enter{
+    width: 100%;
+    max-width: 250px;
+    padding: 10px;
+    font-size: 20px;
+    border: 0;
+    border-radius: 7px;
+    background: #888888;
+    transition: all 0.3s;
+}
+
+.input--enter:hover{
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add--button{
+    width: 100%;
+    max-width: 250px;
+    padding: 10px;
+    font-size: 20px;
+    border: 0;
+    border-radius: 7px;
+    background: #888888;
+    transition: all 0.3s;
+    text-align: center;
+    color: black;
+}
+
+.add--button:hover{
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    width: 90%;
+    height: 420px;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Внутренний контейнер для отступов */
+.modal-content {
+    padding: 24px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal--form{
+    height: 100%;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Псевдоэлемент для затемнения фона за окном */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px); /* Легкое размытие заднего плана */
+}
+
+.delete-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.hidden-btn {
+    display: none;
+}
+
+/* Кнопка закрытия */
+.close-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media screen and (max-device-width:1100px), screen and (max-width:1100px) {
+
+   
+
+}
+
+@media screen and (max-device-width:950px), screen and (max-width:950px) {
+
+    .user--section h2{
+        font-size: 16px;
+    }
+
+    .user--name{
+        flex-direction: column;
+    }
+
+    .user--contract{
+        width: 400px;
+    }
+
+    .input--contract, .input--sum--contract, .input--worker--contract, .input--type_works--contract{
+        padding: 10px 15px;
+    }
+
+}
+
+@media screen and (max-device-width:870px), screen and (max-width:870px) {
+   
+    .user--name{
+        width: 350px;
+    }
+
+    .user--contract{
+        width: 300px;
+    }
+    
+}
+
+@media screen and (max-device-width:550px), screen and (max-width:550px) {
+    
+    .user--name{
+        width: 250px;
+    }
+
+    .user--contract{
+        width: 200px;
+    }
+
+}

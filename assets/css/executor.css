@@ -1,0 +1,257 @@
+body{
+    background: linear-gradient(81deg, #576265 0%, #a5a9a9 14%, #848b8a 44%, #7f898c 56%, #576265 79%, #757a7b 89%, #717e82 100%);
+    background-attachment: fixed;
+}
+
+main{
+    padding-top: 55px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr 1fr;
+    grid-template-rows: 100%;
+}
+
+.block--back--button{
+    display: flex;
+    align-items: flex-start;
+}
+
+.back--button{
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    text-decoration: none;
+    color: black;
+}
+
+.back--button img{
+    transform: rotate(90deg);
+    width: 30px;
+    margin-right: 5px;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+/* ? */
+.block--executor{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* ? */
+
+
+.name--executor{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.img--executor{
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+    justify-content: center;
+}
+
+.img--executor img{
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+}
+
+.img--executor--adaptive{
+    display: none;
+}
+
+.link--executor{
+    width: 100%;
+    max-width: 350px;
+    padding: 10px;
+    font-size: 20px;
+    border: 0;
+    border-radius: 7px;
+    background: #C5DAE6;
+    transition: all 0.3s;
+    margin: 15px 0 15px 0;
+}
+
+.link--executor:hover{
+    background: #888888;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.reviews--executor{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.reviews--title{
+    padding-bottom: 15px;
+}
+
+.reviews--public{
+    width: 100%;
+    max-width: 250px;
+    padding: 10px;
+    font-size: 20px;
+    border: 0;
+    border-radius: 7px;
+    background: #C5DAE6;
+    transition: all 0.3s;
+    margin-bottom: 15px;
+}
+
+.reviews--public:hover{
+    background: #888888;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.review--unit{
+    min-width: 650px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #888888;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.review--container--user--rating{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.review--description{
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    width: 90%;
+    height: 420px;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Внутренний контейнер для отступов */
+.modal-content {
+    padding: 24px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Псевдоэлемент для затемнения фона за окном */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px); /* Легкое размытие заднего плана */
+}
+
+.hidden-btn {
+    display: none;
+}
+
+.auth--button{
+    width: 100%;
+    max-width: 250px;
+    padding: 10px;
+    font-size: 20px;
+    border: 0;
+    border-radius: 7px;
+    background: #888888;
+    transition: all 0.3s;
+    text-align: center;
+    color: black;
+}
+
+.auth--button:hover{
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* Кнопка закрытия */
+.close-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media screen and (max-device-width:1100px), screen and (max-width:1100px) {
+
+    
+
+}
+
+@media screen and (max-device-width:950px), screen and (max-width:950px) {
+
+    main{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .img--executor{
+        display: none;
+    }
+
+    .img--executor--adaptive{
+        display: flex;
+        justify-content: center;
+    }
+
+    .img--executor--adaptive img{
+        width: 200px;
+        height: 200px;
+        padding: 10px;
+    }
+
+    .reviews--users--container{
+        width: 100%;
+    }
+
+    .reviews--executor{
+        width: 80%;
+    }
+
+}
+
+@media screen and (max-device-width:870px), screen and (max-width:870px) {
+   
+    .review--unit{
+        min-width: 420px;
+    }
+
+}
+
+@media screen and (max-device-width:550px), screen and (max-width:550px) {
+    
+    .review--unit{
+        min-width: 250px;
+    }
+
+}
