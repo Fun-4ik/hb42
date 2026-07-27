@@ -2,6 +2,9 @@
 
 namespace Class;
 
+use mysqli;
+use mysqli_stmt;
+
 class User
 {
     
@@ -42,7 +45,7 @@ class User
         
     // }
 
-    public function __auth(string $email, $link){
+    public function __auth(string $email, mysqli $link){
 
         $sqli_fetch = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM `users` WHERE email = '$email'"));
 
@@ -68,7 +71,7 @@ class User
         }
     }
 
-    public function __getUser(int $id, $link){
+    public function __getUser(int $id, mysqli $link){
 
         $sqli_fetch = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM `users` WHERE id = '$id'"));
 
@@ -85,7 +88,26 @@ class User
 
     }
 
-    
+    public function __addContract(mysqli $link, array $contract){
+        
+        $query = "INSERT INTO `contract`(`number`, `sum`, `type_work`, `executor`, `user`) VALUES (?,?,?,?,?)";
+
+        $prepare_query = mysqli_prepare($link, $query);
+
+        if ($prepare_query) {
+            mysqli_stmt_bind_param($prepare_query,"siiii", $contract['number'], $contract['sum'], $contract['type_work'], $contract['executor'], $this->id);
+            
+            if (mysqli_stmt_execute($prepare_query)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+            mysqli_stmt_close($prepare_query);
+        }
+
+    }
 
 }
 

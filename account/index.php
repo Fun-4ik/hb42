@@ -10,23 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/account.css">
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <a href="../index.html"><img src="../assets/img/logo.png" alt="ХозБлог42" class="logo"></a>
-            
-            <nav class="main-menu">
-                <a href="../index.php" class="main-menu-children">Главная</a>
-                <!-- <a href="#" class="main-menu-children">Партнерам</a> -->
-                <a href="#" class="main-menu-children">Бонус</a>
-                <a href="../about-us/index.php" class="main-menu-children">О НАС</a>
-                <a href="#" class="main-menu-children">Личный кабинет</a>
-            </nav>
-
-            <div class="mobile-main-menu">
-                <img class="burgerMobile" src="../assets/img/burgerMenu.png" alt="">
-            </div>
-        </div>
-    </header>
+    <?require_once __DIR__.'/../php/header.php'?>
 
     <main>
         <?if($userData->role === 1){?>
@@ -42,12 +26,32 @@
                 <h2>Мобильный телефон: <?echo $userData->phone_number?></h2>
             </div>
 
-            <form action="POST" class="user--contract">
+            <form action="" method="POST" class="user--contract">
                 <input type="text" name="contract" class="input--contract" placeholder="Номер договора">
                 <input type="text" name="sum" class="input--sum--contract" placeholder="Сумма">
-                <input type="text" name="worker" class="input--worker--contract" placeholder="Исполнитель">
-                <input type="text" name="type_works" class="input--type_works--contract" placeholder="Вид работ">
-                <input type="submit" name="" class="contract--enter" value="Договор заключен">
+                <input type="hidden" id="selected_work_id" name="work_id" value="">
+                <input type="hidden" id="selected_executor_id" name="executor_id" value="">
+
+                <div class="typeWorksList--container">
+                <input autoComplete="off" type="text" name="type_works" class="input--type_works--contract" placeholder="Вид работ">
+                <div class="typeWorksList">
+                            <div class="typeWorksListContent">
+                                <?if(isset($categoriesOfArray) && $categoriesOfArray != null){ foreach($categoriesOfArray as $category){?>
+                                <p class="typeWorksListUnit" data-typework="<?echo $category['id'];?>"><?echo $category['name'];?></p>
+                                <?}}?>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="executorList--container">
+                <input autoComplete="off" type="text" placeholder="Исполнитель" class="input--executor" name="executor">
+                        <div class="executorList">
+                            <div class="executorListContent">
+                            </div>
+                        </div>
+                </div>
+
+                <input type="submit" name="addContract" class="contract--enter" value="Договор заключен">
             </form>
 
             <a class="exit--button" href="../php/exit.php">Выйти</a>
@@ -79,5 +83,7 @@
         <?}?>
 
     </main>
+    <script src="/assets/js/jquery-3.7.1.js"></script>
+    <script src="/assets/js/account.js"></script>
 </body>
 </html>
