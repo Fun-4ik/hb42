@@ -62,29 +62,34 @@
                 </div>
 
                 <?if(isset($_SESSION['user_id'])){?> <button class="reviews--public" id="openRatingBtn">Оставить отзыв</button> <?}?>
-
+                
                 <div class="reviews--users--container">
+
+                    <?if ($executorData->ratings != null) {
+                    foreach ($executorData->ratings as $rating) {?>
 
                     <div class="review--unit">
 
                         <div class="review--container--user--rating">
 
                             <div class="review--username">
-                                <h4>Иванов Петр Васильевич</h4>
+                                <h4><?echo $rating['user']['name'];?></h4>
                             </div>
 
                             <div class="review--rating">
-                                1 2 3 4 5
+                                <?php echo str_repeat('★', $rating['rating']) . str_repeat('☆', 5 - $rating['rating']); ?>
                             </div>
 
                         </div>
 
                         <div class="review--description">
-                            Описание
+                            <?echo $rating['comment'];?>
                         </div>
 
                     </div>
 
+                    <?}}?>
+                
                 </div>
 
             </div>

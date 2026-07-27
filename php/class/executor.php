@@ -15,6 +15,8 @@ class Executor{
     private ?string $category = null;
     private ?array $subcategory = null;
 
+    private ?array $ratings = null;
+
     public function __get(mixed $property)
     {
         return $this->$property;
@@ -25,9 +27,9 @@ class Executor{
 
         if ($prepare_query) {
             mysqli_stmt_bind_param($prepare_query, "i", $id);
-            mysqli_stmt_execute($prepare_query);
+            
 
-            if ($prepare_query) {
+            if (mysqli_stmt_execute($prepare_query)) {
 
                 mysqli_stmt_bind_result($prepare_query, $resid, $resname, $resdescription, $resauthor, $rescategory, $ressubcategory);
 
@@ -44,12 +46,12 @@ class Executor{
                     $this->category = $rescategory;
                     $this->subcategory = $this->getSubcategory($link, (int)$ressubcategory);
 
-                    return "Запрос обработан.";
+                    return true;
                 }
             }
             else {
                 mysqli_stmt_close($prepare_query);
-                return "Непредвиденная ошибка";
+                return false;
             }
 
             
@@ -187,6 +189,74 @@ class Executor{
             }
         }
 
+    }
+
+    public function __addRating(mysqli $link, int $userId, float $rating, string $comment){
+
+        if ($rating >= 1 && $rating <= 5 && !empty($comment)){
+            $query = "INSERT INTO `ratings` (`executor`, `user`, `comment`, `rating`) VALUES (?, ?, ?, ?)";
+
+            $prepare_query = mysqli_prepare($link, $query);
+
+            if ($prepare_query) {
+                mysqli_stmt_bind_param($prepare_query, "iisd", $this->id, $userId, $comment, $rating);
+                mysqli_stmt_execute($prepare_query);
+
+                if ($prepare_query) {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        
+        }
+
+    }
+
+    public function __getRatings(mysqli $link){
+        $query = "SELECT * FROM `ratings` WHERE `ratings`.`executor` = ? ORDER BY `ratings`.`created_at` DESC";
+
+        $prepare_query = mysqli_prepare($link, $query);
+
+        if ($prepare_query) {
+            mysqli_stmt_bind_param($prepare_query, "i", $this->id);
+            mysqli_stmt_execute($prepare_query);
+
+            $result = mysqli_stmt_get_result($prepare_query);
+
+            mysqli_stmt_close($prepare_query);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                
+                $id = $row['id'];
+                $executor = $row['executor'];
+                $user = $this->getAuthor($link,(int) $row['user']);
+                $rating = $row['rating'];
+                $comment = $row['comment'];
+                $created_at = $row['created_at'];
+
+                $arrayOfResults[$id] = ["id" => $id, 
+                "executor" => $executor, 
+                "user" => $user, 
+                "rating" => $rating,
+                "comment" => $comment,
+                "created_at" => $created_at];
+            }
+
+            if (isset($arrayOfResults)) {
+                $this->ratings = $arrayOfResults;
+                return true;
+            }else{
+                return false;
+            }
+
+            
+
+        }else {
+            return "Ошибка в запросе.";
+        }
+        
     }
 
     private function arrayOfExecutors(mysqli $link, mixed $result){
