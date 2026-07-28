@@ -61,9 +61,9 @@
 
                     <datalist id="<?echo $category['id']?>">
 
-                        <?foreach ($category['subcategories'] as $keysc => $subcategory) {?>
+                        <?if($category['subcategories'] != null){foreach ($category['subcategories'] as $subcategory) {?>
                             <option value="<?echo $subcategory['name']?>" data-id="<?echo $subcategory['id']?>"></option>
-                        <?}?>
+                        <?}}?>
 
                     </datalist>
                 
