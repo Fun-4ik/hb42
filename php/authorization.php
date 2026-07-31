@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ .'/../php/advanced.php';
 spl_autoload_register();
+require_once __DIR__ .'/../php/advanced.php';
 
 session_start();
 
@@ -12,11 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($email != '' && $password != ''){
         // 1. Ищем пользователя в БД
-        
         $userData = new Class\User;
-
+        $resultUser = $userData->__auth($link, $email, $password);
         // 2. Проверяем существование пользователя и валидность пароля
-        if ($userData->__auth($email, $link) && password_verify($password, $userData->password)) {
+        if ($resultUser === true) {
         
             // Пароль верный! Записываем данные в сессию
             $_SESSION['user_id'] = $userData->id;
@@ -26,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         } else {
             // Неверный email или пароль
-            $error = "Неверный логин или пароль.";
+            $error = $resultUser;
         }
     }else{
         $error = "Нужно заполнить поля.";

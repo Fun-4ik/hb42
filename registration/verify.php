@@ -22,6 +22,7 @@
                 
                 <div class="error-ver">
                     <?echo $error ?? '';?>
+                    <?echo $message ?? '';?>
                 </div>
             </form>
 

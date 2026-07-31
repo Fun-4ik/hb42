@@ -21,9 +21,9 @@
             </div>
 
             <div class="user--data">
-                <h2>Дата рождения: <?echo $userData->birthDate?></h2>
+                <h2>Дата рождения: <?echo $userData->birthday?></h2>
                 <h2>Почта: <?echo $userData->email?></h2>
-                <h2>Мобильный телефон: <?echo $userData->phone_number?></h2>
+                <h2>Мобильный телефон: <?echo $userData->phone?></h2>
             </div>
 
             <form action="" method="POST" class="user--contract">
@@ -70,9 +70,9 @@
             </div>
 
             <div class="user--data">
-                <h2>Дата рождения: <?echo $userData->birthDate?></h2>
+                <h2>Дата рождения: <?echo $userData->birthday?></h2>
                 <h2>Почта: <?echo $userData->email?></h2>
-                <h2>Мобильный телефон: <?echo $userData->phone_number?></h2>
+                <h2>Мобильный телефон: <?echo $userData->phone?></h2>
             </div>
 
             <a class="exit--button" href="list-carts.php">Карточки предложений</a>

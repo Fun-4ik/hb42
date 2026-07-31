@@ -391,6 +391,12 @@ class Executor{
 
     }
 
+    private function generateReferalCode(){
+        
+        return bin2hex(random_bytes(10));
+
+    }
+
 }
 
 
