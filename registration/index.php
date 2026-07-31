@@ -14,7 +14,7 @@
 
     <main>
 
-            <?if (!isset($_GET['ref']) && $_GET['ref'] != '') {?>
+            <?if (!isset($_GET['ref'])) {?>
 
             <form action="" method="POST" class="reg-block">
                 <h1>Регистрация</h1>
@@ -33,9 +33,9 @@
             </form>
 
             <?}elseif(isset($fatal_error)){?>
-                <div class="error-reg">
+                <h2>
                     <?echo $fatal_error ?? '';?>
-                </div>
+                </h2>
             <?}else{?>
 
             <form action="" method="POST" class="reg-block">

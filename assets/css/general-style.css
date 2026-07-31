@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 /* 700 */
 @font-face {
     font-family: 'A-AB';
