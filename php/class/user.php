@@ -20,6 +20,9 @@ class User
     private ?int $verified = null;
     private ?int $role = null;
 
+    private ?string $company_name = null;
+    private ?string $city = null;
+
 
     public function __get(mixed $property)
     {
@@ -236,33 +239,69 @@ class User
 
             if ($id != null && $verified == 1) {
 
-                $query_userData = "SELECT `name`, `phone`, `birthday`, `balance` FROM `user_data` WHERE `id_user` = ?";
+                if ($role === 1 || $role === 36) {
+                    
+                    $query_userData = "SELECT `name`, `phone`, `birthday`, `balance` FROM `user_data` WHERE `id_user` = ?";
 
-                $prepare_query_step_2 = mysqli_prepare($link, $query_userData);
+                    $prepare_query_step_2 = mysqli_prepare($link, $query_userData);
 
-                if ($prepare_query_step_2) {
+                    if ($prepare_query_step_2) {
                 
-                    mysqli_stmt_bind_param($prepare_query_step_2, "i", $id);
-                    mysqli_stmt_execute($prepare_query_step_2);
-                    mysqli_stmt_bind_result($prepare_query_step_2, $name, $phone, $birthday, $balance);
-                    mysqli_stmt_fetch($prepare_query_step_2);
-                    mysqli_stmt_close($prepare_query_step_2);
+                        mysqli_stmt_bind_param($prepare_query_step_2, "i", $id);
+                        mysqli_stmt_execute($prepare_query_step_2);
+                        mysqli_stmt_bind_result($prepare_query_step_2, $name, $phone, $birthday, $balance);
+                        mysqli_stmt_fetch($prepare_query_step_2);
+                        mysqli_stmt_close($prepare_query_step_2);
 
-                    $this->id = $db_id;
-                    $this->balance = $balance;
-                    $this->name = $name;
-                    $this->birthday = $birthday;
-                    $this->email = $email;
-                    $this->phone = $phone;
-                    $this->password = $passwordHash;
-                    $this->verified = $verified;
-                    $this->role = $role;
+                        $this->id = $db_id;
+                        $this->balance = $balance;
+                        $this->name = $name;
+                        $this->birthday = $birthday;
+                        $this->email = $email;
+                        $this->phone = $phone;
+                        $this->password = $passwordHash;
+                        $this->verified = $verified;
+                        $this->role = $role;
 
-                    return true;
+                        return true;
 
-                }else {
-                    return "Ошибка при обращении к БД";
+                    }else {
+                        return "Ошибка при обращении к БД";
+                    }
+
+                }elseif($role === 2){
+
+                    $query_userData = "SELECT `company_name`, `director_name`, `phone`, `city` FROM `executor_data` WHERE `user_id` = ?";
+
+                    $prepare_query_step_2 = mysqli_prepare($link, $query_userData);
+
+                    if ($prepare_query_step_2) {
+                
+                        mysqli_stmt_bind_param($prepare_query_step_2, "i", $id);
+                        mysqli_stmt_execute($prepare_query_step_2);
+                        mysqli_stmt_bind_result($prepare_query_step_2, $company_name, $director_name, $phone, $city);
+                        mysqli_stmt_fetch($prepare_query_step_2);
+                        mysqli_stmt_close($prepare_query_step_2);
+
+                        $this->id = $db_id;
+                        $this->name = $director_name;
+                        $this->company_name = $company_name;
+                        $this->city = $city;
+                        $this->email = $email;
+                        $this->phone = $phone;
+                        $this->password = $passwordHash;
+                        $this->verified = $verified;
+                        $this->role = $role;
+
+                        return true;
+
+                    }else {
+                        return "Ошибка при обращении к БД";
+                    }
+
                 }
+
+                
                 
             }else {
                 return "Пользователь не существует";

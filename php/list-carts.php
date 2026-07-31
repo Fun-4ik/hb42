@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $userData = new Class\User;
 
-$userData->__getUser((int)$_SESSION['user_id'], $link);
+$userData->__getUser($link, (int)$_SESSION['user_id']);
 
 if ($userData->role !==2) {
     header("Location: ../account/index.php");

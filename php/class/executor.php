@@ -371,20 +371,54 @@ class Executor{
 
     private function getAuthor(mysqli $link, int $id){
 
-        $prepare_query = mysqli_prepare($link, "SELECT users.id, users.name, users.company_name, users.email, users.mobile_number FROM `users` WHERE users.id = ?");
+        $prepare_query = mysqli_prepare($link, "SELECT user.id, user.email, user.role FROM `user` WHERE user.id = ?");
 
         if ($prepare_query) {
             mysqli_stmt_bind_param($prepare_query, "i", $id);
             mysqli_stmt_execute($prepare_query);
 
-            mysqli_stmt_bind_result($prepare_query, $uId, $uName, $uCName, $uEmail, $uPhone);
+            mysqli_stmt_bind_result($prepare_query, $uId, $uEmail, $uRole);
             mysqli_stmt_fetch($prepare_query);
-
-            $response = ["id" => $uId, "name" => $uName, "company_name" => $uCName, "email" => $uEmail, "phone" => $uPhone];
-
             mysqli_stmt_close($prepare_query);
 
-            return $response;
+            if ($uRole == 1) {
+                
+                $query = "SELECT `name`, `phone`, `birthday`, `balance` FROM `user_data` WHERE `id_user` = ?";
+                $prepare_query = mysqli_prepare($link, $query);
+
+                if ($prepare_query) {
+                    
+                    mysqli_stmt_bind_param($prepare_query, "i", $id);
+                    mysqli_stmt_execute($prepare_query);
+                    mysqli_stmt_bind_result($prepare_query, $uName, $uPhone, $uBirthday, $uBalance);
+                    mysqli_stmt_fetch($prepare_query);
+                    mysqli_stmt_close($prepare_query);
+
+                    $response = ["id" => $uId, "email" => $uEmail, "role" => $uRole, "name" => $uName, "phone" => $uPhone, "birthday" => $uBirthday, "balance" => $uBalance];
+
+                    return $response;
+                }
+
+            }elseif($uRole == 2){
+
+                $query = "SELECT `company_name`, `director_name`, `phone`, `city` FROM `executor_data` WHERE `user_id` = ?";
+                $prepare_query = mysqli_prepare($link, $query);
+
+                if ($prepare_query) {
+                    
+                    mysqli_stmt_bind_param($prepare_query, "i", $id);
+                    mysqli_stmt_execute($prepare_query);
+                    mysqli_stmt_bind_result($prepare_query, $cName, $uName, $uPhone, $uCity);
+                    mysqli_stmt_fetch($prepare_query);
+                    mysqli_stmt_close($prepare_query);
+
+                    $response = ["id" => $uId, "email" => $uEmail, "role" => $uRole, "name" => $uName, "phone" => $uPhone, "company_name" => $cName, "city" => $uCity];
+
+                    return $response;
+                }
+
+            }
+            
         }else{
             return null;
         }

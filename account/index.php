@@ -66,16 +66,32 @@
         <section class="user--section">
             <div class="user--name">
                 <img src="../assets/img/Ellipse.png" alt="ava">
-                <h2>Исполнитель: <?echo $userData->name?></h2>
+                <h2><?echo $userData->name?></h2>
             </div>
 
             <div class="user--data">
-                <h2>Дата рождения: <?echo $userData->birthday?></h2>
+                <h2>Организация: <?echo $userData->company_name?></h2>
                 <h2>Почта: <?echo $userData->email?></h2>
                 <h2>Мобильный телефон: <?echo $userData->phone?></h2>
             </div>
 
             <a class="exit--button" href="list-carts.php">Карточки предложений</a>
+            <a class="exit--button" href="../php/exit.php">Выйти</a>
+            
+        </section>
+
+        <?}
+        elseif($userData->role === 36){
+        ?>
+
+
+        <section class="user--section">
+            <div class="user--name">
+                <img src="../assets/img/Ellipse.png" alt="ava">
+                <h2>Исполнитель: <?echo $userData->name?></h2>
+            </div>
+
+            <a class="exit--button" href="../php/admin_panel.php">Админ панель</a>
             <a class="exit--button" href="../php/exit.php">Выйти</a>
             
         </section>
