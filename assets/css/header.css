@@ -1,5 +1,9 @@
 header{
     background-color: #C5DAE6;
+    width: 100%;
+
+    position: relative; /* Включает контекст наложения для хедера */
+    z-index: 9999
 }
 
 .header-content{
@@ -8,31 +12,35 @@ header{
     align-items: center;
     justify-content: space-between;
     padding: 0px 50px 0px 50px;
+    position: relative;
 }
 
 .logo{
     height: 100px;
+    object-fit: contain;
 }
 
 
 .mobile-main-menu{
     display: none;
+    align-items: center;
 }
 
 .main-menu-children{
     font-size: 20px;
     text-decoration: none;
-    color: black;
+    color: #000;
     padding-right: 10px;
+    transition: all 0.2s ease;
 }
 
 .main-menu-children:hover{
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: bold;
     cursor: pointer;
 }
 
-dialog {
+#bonusModal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -47,7 +55,7 @@ dialog {
 }
 
 /* Внутренний контейнер для отступов */
-.modal-content {
+.modal-content, .burgerMenu-content {
     padding: 24px;
     height: 100%;
     display: flex;
@@ -56,46 +64,10 @@ dialog {
     align-items: center;
 }
 
-.rating--form{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 /* Псевдоэлемент для затемнения фона за окном */
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(3px); /* Легкое размытие заднего плана */
-}
-
-.hidden-btn {
-    display: none;
-}
-
-.comment--input{
-    width: 80%;
-    height: 100px;
-    margin: 25px 0;
-}
-
-.add--button{
-    width: 100%;
-    max-width: 250px;
-    padding: 10px;
-    font-size: 20px;
-    border: 0;
-    border-radius: 7px;
-    background: #888888;
-    transition: all 0.3s;
-    text-align: center;
-    color: black;
-}
-
-.add--button:hover{
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s;
 }
 
 /* Кнопка закрытия */
@@ -108,6 +80,55 @@ dialog::backdrop {
   cursor: pointer;
 }
 
+#burgerMenu {
+    position:fixed;
+    max-width: 300px;
+    width:100%;
+    background: white;
+    /* transition: 0.8s ease top; */
+    border-radius: 0px 0px 7px 7px;
+    border: none;
+    top: 85px;
+    left: inherit;
+    padding: 0;
+    height: 420px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+    position: absolute; 
+    
+    /* Задаем слой ниже, чем у хедера */
+    z-index: 9000; 
+}
+
+#burgerMenu[open],
+#burgerMenu:modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+body:has(dialog[open]),
+body:has(dialog:modal) {
+    overflow: hidden;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    
+    /* Слой между контентом и хедером */
+    z-index: 5000; 
+    display: none; /* Показывайте через JS одновременно с dialog */
+}
+
+.modal-overlay-show{
+    display: flex;
+}
 
 @media screen and (max-device-width:1100px), screen and (max-width:1100px) {
     .main-menu-children{
@@ -140,7 +161,7 @@ dialog::backdrop {
     }
 
     .main-menu{
-    display: none;
+        display: none;
     }
 
     .mobile-main-menu{
