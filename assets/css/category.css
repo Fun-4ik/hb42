@@ -1,6 +1,7 @@
 body{
     background: linear-gradient(81deg, #576265 0%, #a5a9a9 14%, #848b8a 44%, #7f898c 56%, #576265 79%, #757a7b 89%, #717e82 100%);
     background-attachment: fixed;
+    min-height: 100vh;
 }
 
 main{
@@ -8,7 +9,7 @@ main{
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 2.5fr 1fr;
-    grid-template-rows: 100%;
+    gap: 20px;
 }
 
 .block--back--button{
@@ -96,6 +97,7 @@ main{
 
 .category--content--item--arrow--rotate{
     transform: rotate(0deg);
+    transition: 0.3s ease all;
 }
 
 .content--inside--unit{
@@ -108,74 +110,103 @@ main{
 }
 
 .category--content--inside{
+    max-height: 0;
+    visibility: hidden;
+    overflow: hidden;
     transition: 0.3s ease all;
 }
 
-.hidden{
-    display: none;
+.category--content--inside--show {
+    max-height: 1000px; /* Запас высоты, до которого плавно развернется блок */
+    visibility: visible;
     transition: 0.3s ease all;
 }
 
-@media screen and (max-device-width:1100px), screen and (max-width:1100px) {
-
+@media screen and (max-width: 1100px) {
+    main {
+        /* ИСПРАВЛЕНО: сужаем боковые колонки, даем больше места контенту */
+        grid-template-columns: 0.5fr 3fr 0.5fr; 
+    }
     
-
+    .back--button {
+        margin-left: 20px;
+    }
 }
 
-@media screen and (max-device-width:950px), screen and (max-width:950px) {
+@media screen and (max-width: 950px) {
+    main {
+        /* ИСПРАВЛЕНО: убираем боковые колонки полностью, переводим в 1 колонку */
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
 
-    .img--container--category{
+    .block--back--button {
+        justify-content: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .back--button {
+        margin-left: 0;
+    }
+
+    .img--container--category {
         display: none;
     }
 
-    .img--container--category--adaptive{
+    .img--container--category--adaptive {
         display: flex;
         justify-content: center;
+        margin-bottom: 20px;
     }
 
-    .img--container--category--adaptive img{
-        width: 200px;
-        height: 200px;
-        padding: 10px;
+    .img--container--category--adaptive img {
+        width: 150px; /* Немного уменьшили для мобильных экранов */
+        height: 150px;
+        padding: 5px;
     }
-
 }
 
-@media screen and (max-device-width:870px), screen and (max-width:870px) {
-   
-    .name--info--category h1{
+@media screen and (max-width: 870px) {
+    .name--info--category h1 {
         font-size: 20px;
     }
 
-    .category--content--item--title{
-        padding: 10px;
+    .category--content--item--title {
+        padding: 15px 10px;
     }
 
-    .category--content--item--title h2{
+    .category--content--item--title h2 {
+        font-size: 16px;
+    }
+
+    .content--inside--unit {
+        padding: 12px 10px;
+    }
+
+    .content--inside--unit h2 {
         font-size: 15px;
     }
 
-    .content--inside--unit{
-        padding: 10px;
-    }
-
-    .content--inside--unit h2{
-        font-size: 15px;
-    }
-
-    .category--content--item--title--name{
+    .category--content--item--title--name {
         align-items: center;
     }
-
 }
 
-@media screen and (max-device-width:550px), screen and (max-width:550px) {
-    
-    .name--info--category h1{
-        font-size: 15px;
+@media screen and (max-width: 550px) {
+    main {
+        padding: 10px;
+        padding-top: 30px;
     }
 
-    .block--back--button h3{
-        font-size: 15px;
+    .name--info--category h1 {
+        font-size: 16px;
+    }
+
+    .block--back--button h3 {
+        font-size: 14px;
+    }
+    
+    .category--content--item--arrow {
+        width: 24px;
     }
 }

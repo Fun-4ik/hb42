@@ -24,11 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registration']) && !i
     $result_newUser = $newUser->__regUser($link, $userdataReg);
 
     if ($result_newUser === true) {
-        send_mail_code($mail_setup, trim($_POST['userEmail']), $newUser->verificationCode);
-
         $url_email = urlencode(trim($_POST['userEmail']));
 
         header("Location: ../registration/verify.php?email=" . $url_email);
+
+        send_mail_code($mail_setup, trim($_POST['userEmail']), $newUser->verificationCode);
+
     }else{
         $error = $result_newUser;
     }       

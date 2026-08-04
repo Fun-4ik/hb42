@@ -1,4 +1,4 @@
-<?require_once __DIR__ .'\php\main.php'?>
+<?require_once __DIR__ .'/php/main.php'?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>

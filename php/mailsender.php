@@ -22,7 +22,7 @@ function send_mail_code(array $mail_setup, string $to, string $code){
         $mail->CharSet = $mail_setup['CharSet'];
 
         //Recipients
-        $mail->setFrom('danil.protasov.95@gmail.com', 'ХозБлог42');
+        $mail->setFrom('manager@cy586009.tw1.ru', 'ХозБлог42');
         $mail->addAddress($to);
 
         $mail->Subject = 'Регистрации на сайте ХозБлог42';
