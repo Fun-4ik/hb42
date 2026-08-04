@@ -14,10 +14,10 @@ $link = mysqli_connect($db_setup['host'],$db_setup['user'],$db_setup['password']
 
 $mail_setup = [
     "SMTPDebug" => 2,
-    "Host" => 'smtp.gmail.com',
+    "Host" => 'smtp.timeweb.ru',
     "SMTPAuth" => true,
-    "Username" => 'danil.protasov.95@gmail.com',
-    "Password" => 'ryhk kdnc dvyb whjy',
+    "Username" => 'manager@cy586009.tw1.ru',
+    "Password" => 'H6qO3XX80kCAsp',
     "SMTPSecure" => 'ssl',
     "Port" => 465,
     "CharSet" => 'UTF-8'

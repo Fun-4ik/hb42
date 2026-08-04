@@ -1,30 +1,37 @@
-body{
+body {
     background: linear-gradient(81deg, #576265 0%, #a5a9a9 14%, #848b8a 44%, #7f898c 56%, #576265 79%, #757a7b 89%, #717e82 100%);
     background-attachment: fixed;
+    min-height: 100vh;
 }
 
-main{
+main {
     padding-top: 55px;
     width: 100%;
     display: grid;
+    /* Убрано жесткое grid-template-rows */
     grid-template-columns: 1fr 2.5fr 1fr;
-    grid-template-rows: 100%;
+    gap: 20px;
 }
 
-.block--back--button{
+.block--back--button {
     display: flex;
     align-items: flex-start;
 }
 
-.back--button{
+.back--button {
     display: flex;
     align-items: center;
     margin-left: 50px;
     text-decoration: none;
     color: black;
+    transition: opacity 0.2s ease;
 }
 
-.back--button img{
+.back--button:hover {
+    opacity: 0.7;
+}
+
+.back--button img {
     transform: rotate(90deg);
     width: 30px;
     margin-right: 5px;
@@ -34,39 +41,41 @@ main{
     -webkit-user-select: none;
     -ms-user-select: none;
 }
-/* ? */
-.block--executor{
+
+.block--executor {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-/* ? */
 
-
-.name--executor{
+.name--executor {
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
 }
 
-.img--executor{
+.name--executor h1 {
+    margin: 0;
+}
+
+.img--executor {
     display: grid;
-    grid-template-columns: 200px 200px 200px;
+    grid-template-columns: repeat(3, 200px);
     justify-content: center;
 }
 
-.img--executor img{
+.img--executor img {
     width: 200px;
     height: 200px;
     padding: 10px;
 }
 
-.img--executor--adaptive{
+.img--executor--adaptive {
     display: none;
 }
 
-.link--executor{
+.link--executor {
     width: 100%;
     max-width: 350px;
     padding: 10px;
@@ -74,31 +83,44 @@ main{
     border: 0;
     border-radius: 7px;
     background: #C5DAE6;
-    transition: all 0.3s;
-    margin: 15px 0 15px 0;
-}
-
-.link--executor:hover{
-    background: #888888;
+    transition: background-color 0.3s ease;
+    margin: 15px 0;
     cursor: pointer;
-    transition: all 0.3s;
+    text-align: center;
+    text-decoration: none;
+    color: black;
 }
 
-.reviews--executor{
+.link--executor:hover {
+    background: #888888;
+    color: white;
+}
+
+.reviews--users--container {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reviews--executor {
+    width: 100%;
+    max-width: 750px; /* Ограничиваем общую ширину блока отзывов для красоты на десктопе */
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: white;
     border-radius: 10px;
-    padding: 15px;
+    padding: 25px 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.reviews--title{
+.reviews--title {
+    margin: 0;
     padding-bottom: 15px;
 }
 
-.reviews--public{
+.reviews--public {
     width: 100%;
     max-width: 250px;
     padding: 10px;
@@ -106,50 +128,55 @@ main{
     border: 0;
     border-radius: 7px;
     background: #C5DAE6;
-    transition: all 0.3s;
+    transition: background-color 0.3s ease;
     margin-bottom: 15px;
-}
-
-.reviews--public:hover{
-    background: #888888;
     cursor: pointer;
-    transition: all 0.3s;
 }
 
-.review--unit{
-    min-width: 650px;
+.reviews--public:hover {
+    background: #888888;
+    color: white;
+}
+
+.review--unit {
+    /* ИСПРАВЛЕНО: Полностью убран ломающий min-width. Теперь блок идеально резиновый */
     width: 100%;
+    max-width: 650px; 
     display: flex;
     flex-direction: column;
-    background-color: #888888;
+    background-color: #f1f2f6; /* Изменен на более светлый, чтобы черный текст отзывов читался */
+    color: #2c3e50;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 10px;
+    border: 1px solid #e4e7eb;
 }
 
-.review--container--user--rating{
+.review--container--user--rating {
     width: 100%;
     display: flex;
     justify-content: space-between;
-}
-
-.review--username{
-    display: flex;
     align-items: center;
 }
 
-.review--rating{
-    font-size: 30px;
+.review--username {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.review--rating {
+    font-size: 24px; /* Немного уменьшили, чтобы не ломало строку на мобильных */
     color: #f39c12;
 }
 
-.review--description{
+.review--description {
     width: 100%;
     margin-top: 15px;
+    line-height: 1.5;
 }
 
-
-
+/* МОДАЛЬНОЕ ОКНО (DIALOG) */
 dialog {
     position: fixed;
     top: 50%;
@@ -159,45 +186,47 @@ dialog {
     border-radius: 8px;
     padding: 0;
     width: 90%;
-    height: 420px;
+    height: auto; /* ИСПРАВЛЕНО: резиновая высота, чтобы контент не обрезался */
+    max-height: 90vh;
     max-width: 500px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Внутренний контейнер для отступов */
 .modal-content {
     padding: 24px;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
+    gap: 15px;
 }
 
-.rating--form{
+.rating--form {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Псевдоэлемент для затемнения фона за окном */
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(3px); /* Легкое размытие заднего плана */
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
 }
 
 .hidden-btn {
     display: none;
 }
 
-.comment--input{
-    width: 80%;
+.comment--input {
+    width: 100%; /* ИСПРАВЛЕНО: растягиваем на 100% модалки */
+    max-width: 400px;
     height: 100px;
-    margin: 25px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
 }
 
-.add--button{
+.add--button {
     width: 100%;
     max-width: 250px;
     padding: 10px;
@@ -205,103 +234,109 @@ dialog::backdrop {
     border: 0;
     border-radius: 7px;
     background: #888888;
+    color: white;
     transition: all 0.3s;
     text-align: center;
-    color: black;
-}
-
-.add--button:hover{
-    background: white;
     cursor: pointer;
-    transition: all 0.3s;
 }
 
-/* Кнопка закрытия */
+.add--button:hover {
+    background: #2c3e50;
+}
+
 .close-btn {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-
-
+/* ЗВЕЗДЫ В ФОРМЕ */
 .rating-stars {
-  display: flex;
-  flex-direction: row-reverse; /* Разворачиваем, чтобы правильно работал селектор ~ */
-  justify-content: flex-end;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin-bottom: 10px;
 }
 
 .rating-stars input[type="radio"] {
-  display: none; /* Прячем стандартные кружочки радиокнопок */
+    display: none;
 }
 
 .rating-stars label {
-  font-size: 60px;
-  color: #ccc; /* Серые звёзды по умолчанию */
-  cursor: pointer;
-  transition: color 0.3s ease;
+    font-size: 50px; /* Уменьшили до 50px, чтобы 5 звезд гарантированно влезали на экраны 320px */
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0 2px;
 }
 
-/* Подсветка звёзд при наведении и выборе */
 .rating-stars label:hover,
 .rating-stars label:hover ~ label,
 .rating-stars input[type="radio"]:checked ~ label {
-  color: #f39c12; /* Золотой цвет */
+    color: #f39c12;
 }
 
-@media screen and (max-device-width:1100px), screen and (max-width:1100px) {
+/* АДАПТИВНОСТЬ (МЕДИА-ЗАПРОСЫ) */
 
-    
-
+@media screen and (max-width: 1100px) {
+    main {
+        /* ИСПРАВЛЕНО: сужаем пустые боковые колонки на планшетах */
+        grid-template-columns: 0.5fr 3fr 0.5fr; 
+    }
 }
 
-@media screen and (max-device-width:950px), screen and (max-width:950px) {
-
-    main{
+@media screen and (max-width: 950px) {
+    main {
         display: flex;
         flex-direction: column;
+        padding: 20px 15px;
     }
 
-    .img--executor{
+    .back--button {
+        margin-left: 0;
+        margin-bottom: 15px;
+    }
+
+    .img--executor {
         display: none;
     }
 
-    .img--executor--adaptive{
+    .img--executor--adaptive {
         display: flex;
         justify-content: center;
+        margin-bottom: 15px;
     }
 
-    .img--executor--adaptive img{
-        width: 200px;
-        height: 200px;
-        padding: 10px;
+    .img--executor--adaptive img {
+        width: 150px;
+        height: 150px;
+        padding: 5px;
     }
 
-    .reviews--users--container{
-        width: 100%;
+    .reviews--executor {
+        width: 100%; /* Отзывы займут всю ширину экрана на мобилке */
+        padding: 15px 10px;
     }
-
-    .reviews--executor{
-        width: 80%;
-    }
-
 }
 
-@media screen and (max-device-width:870px), screen and (max-width:870px) {
-   
-    .review--unit{
-        min-width: 420px;
+@media screen and (max-width: 550px) {
+    .name--executor h1 {
+        font-size: 24px;
     }
-
-}
-
-@media screen and (max-device-width:550px), screen and (max-width:550px) {
     
-    .review--unit{
-        min-width: 250px;
+    .rating-stars label {
+        font-size: 40px; /* Еще немного уменьшаем звезды формы на самых маленьких телефонах */
     }
 
+    .review--username {
+        font-size: 14px;
+    }
+
+    .review--rating {
+        font-size: 18px;
+    }
 }
