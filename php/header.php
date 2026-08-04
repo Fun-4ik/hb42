@@ -6,7 +6,7 @@
                 <a href="/../index.php" class="main-menu-children">Главная</a>
                 <!-- <a href="#" class="main-menu-children">Партнерам</a> -->
                 <a id="btnBonus" class="main-menu-children">Бонус</a>
-                <a href="about-us/index.php" class="main-menu-children">О НАС</a>
+                <a href="../about-us/index.php" class="main-menu-children">О НАС</a>
                 <a href="<?if(isset($_SESSION['user_id'])){echo '../account/index.php';}else{echo '../login/index.php';}?>" class="main-menu-children">Личный кабинет</a>
             </nav>
 

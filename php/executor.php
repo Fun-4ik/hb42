@@ -7,7 +7,7 @@ session_start();
 
 if (isset($_SESSION['user_id'])) {
     $userData = new Class\User;
-    $userData->__getUser($_SESSION['user_id'], $link);
+    $userData->__getUser($link, $_SESSION['user_id']);
 }
 
 if (isset($_GET['executor']) && $_GET['executor'] != '') {

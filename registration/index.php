@@ -14,14 +14,16 @@
 
     <main>
 
+            <?if (!isset($_GET['ref'])) {?>
+
             <form action="" method="POST" class="reg-block">
                 <h1>Регистрация</h1>
-                <input type="text" name="userName" class="input-name" placeholder="ФИО">
-                <input type="text" max="2008-06-01" name="userBirthDate" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" class="input-birthdate" placeholder="Дата рождения">
-                <input type="email" name="userEmail" class="input-email" placeholder="Почта">
-                <input type="tel" id="phone" name="userPhone" class="input-phone" placeholder="Номер телефона">
-                <input type="password" name="userPassword" class="input-password" placeholder="Пароль">
-                <input type="password" name="userPasswordRepeat" class="input-password" placeholder="Повторите пароль">
+                <input type="text" name="userName" class="input--name" placeholder="ФИО">
+                <input type="text" max="2008-06-01" name="userBirthDate" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" class="input--birthdate" placeholder="Дата рождения">
+                <input type="email" name="userEmail" class="input--email" placeholder="Почта">
+                <input type="tel" id="phone" name="userPhone" class="input--phone" placeholder="Номер телефона">
+                <input type="password" name="userPassword" class="input--password" placeholder="Пароль">
+                <input type="password" name="userPasswordRepeat" class="input--password" placeholder="Повторите пароль">
                 
                 <input name="registration" type="submit" class="reg-enter" value="Зарегистрироваться">
                 
@@ -29,6 +31,34 @@
                     <?echo $error ?? '';?>
                 </div>
             </form>
+
+            <?}elseif(isset($fatal_error)){?>
+                <h2>
+                    <?echo $fatal_error ?? '';?>
+                </h2>
+            <?}else{?>
+
+            <form action="" method="POST" class="reg-block">
+                <h1>Партнерам</h1>
+                <p>Хотите разместить свои услуги у нас, тогда заполните форму и оставьте заявку. Мы обязательно ее рассмотрим.</p>
+                <input type="text" name="companyName" class="input--company" placeholder="Название организации">
+                <input type="text" name="userName" class="input--name" placeholder="ФИО Руководителя">
+                <p>Поле "Желаемые категории" необязательно к заполнению. Если вы не нашли категорию которая вам необходима, тогда укажите нужную вам.</p>
+                <input type="text" name="desiredCategories" class="input--categories" placeholder="Желаемые категории">
+                <input type="text" name="city" class="input--city" placeholder="Укажите город">
+                <input type="email" name="userEmail" class="input--email" placeholder="Почта">
+                <input type="tel" id="phone" name="userPhone" class="input--phone" placeholder="Номер телефона">
+                <input type="password" name="userPassword" class="input--password" placeholder="Пароль">
+                <input type="password" name="userPasswordRepeat" class="input--password" placeholder="Повторите пароль">
+                
+                <input name="registration" type="submit" class="reg-enter" value="Зарегистрироваться">
+                
+                <div class="error-reg">
+                    <?echo $error ?? '';?>
+                </div>
+            </form>
+
+            <?}?>
 
     </main>
 </body>

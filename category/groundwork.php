@@ -62,7 +62,7 @@
                     
                         <a href="../executor/index.php?executor=<?echo $value->id?>">
                         <div class="content--inside--unit">
-                            <h2><?echo $value->author['name']?></h2>  
+                            <h2><?echo $value->author['company_name']?></h2>  
                         </div>
                         </a>
                     

@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $userData = new Class\User;
 
-$userData->__getUser((int)$_SESSION['user_id'], $link);
+$userData->__getUser($link, (int)$_SESSION['user_id']);
 
 if ($userData->role !==2) {
     header("Location: ../account/index.php");
@@ -34,7 +34,7 @@ if (isset($_POST['idCart'])) {
             
             $response = [
                 'id' => $exec->id,
-                'name' => $exec->name,
+                'name' => $exec->author['company_name'],
                 'description' => $exec->description,
                 'category' => $exec->category,
                 'subcategory' => $exec->subcategory
@@ -72,7 +72,7 @@ if (isset($_POST['addCart'])) {
                     
             }else {
                 $executorNew = new Class\Executor;
-                $executorNew->__addExecutor($link, $userData->name, $_POST['description'], $_SESSION['user_id'], $_POST['category'], $_POST['subcategory']);
+                $executorNew->__addExecutor($link, $_POST['description'], $_SESSION['user_id'], $_POST['category'], $_POST['subcategory']);
             }
 
             header("Location: ../account/list-carts.php");

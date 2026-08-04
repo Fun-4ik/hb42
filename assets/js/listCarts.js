@@ -20,7 +20,7 @@ function updateSubcategoryList(categoryId) {
     subcategoryInput.removeAttribute('list'); 
     
     if (categoryId) {
-        // Устанавливаем строковый ID (например, "sub-list-3")
+        // Устанавливаем строковый ID (например, "3")
         subcategoryInput.setAttribute('list', listId); 
     }
 }
@@ -73,8 +73,9 @@ for (let i = 0; i < editBtn.length; i++) {
                     
                     // Ищем ID подкатегории в подключенном списке
                     const subDatalist = document.getElementById(`${catId}`);
+                    
                     if (subDatalist) {
-                        const subOption = subDatalist.querySelector(`option[value="${response.subcategory}"]`);
+                        const subOption = subDatalist.querySelector(`option[value="${response.subcategory.name}"]`);
                         if (subOption) {
                             subcategoryHidden.value = subOption.getAttribute('data-id');
                         }

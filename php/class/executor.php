@@ -9,7 +9,6 @@ class Executor{
 
     protected ?int $id;
 
-    private ?string $name = null;
     private ?string $description = null;
     private ?array $author = null;
     private ?string $category = null;
@@ -31,7 +30,7 @@ class Executor{
 
             if (mysqli_stmt_execute($prepare_query)) {
 
-                mysqli_stmt_bind_result($prepare_query, $resid, $resname, $resdescription, $resauthor, $rescategory, $ressubcategory);
+                mysqli_stmt_bind_result($prepare_query, $resid, $resdescription, $resauthor, $rescategory, $ressubcategory);
 
                 $result_query = mysqli_stmt_fetch($prepare_query);
 
@@ -40,7 +39,6 @@ class Executor{
                 if ($result_query) {
 
                     $this->id = $id;
-                    $this->name = $resname;
                     $this->description = $resdescription;
                     $this->author = $this->getAuthor($link,(int)$resauthor);
                     $this->category = $rescategory;
@@ -58,12 +56,12 @@ class Executor{
         }
     }
 
-    public function __addExecutor(mysqli $link, string $name, string $description, int $author, int $category, int $subcategory){
+    public function __addExecutor(mysqli $link, string $description, int $author, int $category, int $subcategory){
 
-        $prepare_query = mysqli_prepare($link, "INSERT INTO `executor`(`name`, `description`, `author`, `category`, `subcategory`) VALUES (?,?,?,?,?)");
+        $prepare_query = mysqli_prepare($link, "INSERT INTO `executor`(`description`, `author`, `category`, `subcategory`) VALUES (?,?,?,?)");
 
         if ($prepare_query) {
-            mysqli_stmt_bind_param($prepare_query, "ssiii", $name, $description, $author, $category, $subcategory);
+            mysqli_stmt_bind_param($prepare_query, "siii", $description, $author, $category, $subcategory);
             mysqli_stmt_execute($prepare_query);
 
             if ($prepare_query) {
@@ -265,7 +263,6 @@ class Executor{
             $executor = new self();
 
             $executor->id = $row['id'];
-            $executor->name = $row['name'];
             $executor->description = $row['description'];
             $executor->author = $this->getAuthor($link,$row['author']);
             $categoryId = $this->getCategory($link,$row['category']);
@@ -374,23 +371,63 @@ class Executor{
 
     private function getAuthor(mysqli $link, int $id){
 
-        $prepare_query = mysqli_prepare($link, "SELECT users.id, users.name, users.email, users.mobile_number FROM `users` WHERE users.id = ?");
+        $prepare_query = mysqli_prepare($link, "SELECT user.id, user.email, user.role FROM `user` WHERE user.id = ?");
 
         if ($prepare_query) {
             mysqli_stmt_bind_param($prepare_query, "i", $id);
             mysqli_stmt_execute($prepare_query);
 
-            mysqli_stmt_bind_result($prepare_query, $uId, $uName, $uEmail, $uPhone);
+            mysqli_stmt_bind_result($prepare_query, $uId, $uEmail, $uRole);
             mysqli_stmt_fetch($prepare_query);
-
-            $response = ["id" => $uId, "name" => $uName, "email" => $uEmail, "phone" => $uPhone];
-
             mysqli_stmt_close($prepare_query);
 
-            return $response;
+            if ($uRole == 1) {
+                
+                $query = "SELECT `name`, `phone`, `birthday`, `balance` FROM `user_data` WHERE `id_user` = ?";
+                $prepare_query = mysqli_prepare($link, $query);
+
+                if ($prepare_query) {
+                    
+                    mysqli_stmt_bind_param($prepare_query, "i", $id);
+                    mysqli_stmt_execute($prepare_query);
+                    mysqli_stmt_bind_result($prepare_query, $uName, $uPhone, $uBirthday, $uBalance);
+                    mysqli_stmt_fetch($prepare_query);
+                    mysqli_stmt_close($prepare_query);
+
+                    $response = ["id" => $uId, "email" => $uEmail, "role" => $uRole, "name" => $uName, "phone" => $uPhone, "birthday" => $uBirthday, "balance" => $uBalance];
+
+                    return $response;
+                }
+
+            }elseif($uRole == 2){
+
+                $query = "SELECT `company_name`, `director_name`, `phone`, `city` FROM `executor_data` WHERE `user_id` = ?";
+                $prepare_query = mysqli_prepare($link, $query);
+
+                if ($prepare_query) {
+                    
+                    mysqli_stmt_bind_param($prepare_query, "i", $id);
+                    mysqli_stmt_execute($prepare_query);
+                    mysqli_stmt_bind_result($prepare_query, $cName, $uName, $uPhone, $uCity);
+                    mysqli_stmt_fetch($prepare_query);
+                    mysqli_stmt_close($prepare_query);
+
+                    $response = ["id" => $uId, "email" => $uEmail, "role" => $uRole, "name" => $uName, "phone" => $uPhone, "company_name" => $cName, "city" => $uCity];
+
+                    return $response;
+                }
+
+            }
+            
         }else{
             return null;
         }
+
+    }
+
+    private function generateReferalCode(){
+        
+        return bin2hex(random_bytes(10));
 
     }
 

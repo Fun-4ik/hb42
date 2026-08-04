@@ -1,41 +1,51 @@
-body{
-    height: 100vh;
-    background: linear-gradient(81deg, #576265 0%, #a5a9a9 14%, #848b8a 44%, #7f898c 56%, #576265 79%, #757a7b 89%, #717e82 100%);
-    background-repeat: no-repeat;
+body {
+    min-height: 100vh;
+    /* Добавлен background-attachment: fixed, чтобы градиент не ломался при скролле */
+    background: linear-gradient(81deg, #576265 0%, #a5a9a9 14%, #848b8a 44%, #7f898c 56%, #576265 79%, #757a7b 89%, #717e82 100%) no-repeat fixed;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-height: 800px;
-    height: 100%; 
+    min-height: 100vh; /* ИСПРАВЛЕНО: теперь main гарантированно занимает весь экран */
+    padding: 40px 20px; /* Чтобы блок не прилипал к краям экрана сверху и снизу */
 }
 
-.reg-block{
-    height: 550px;
-    width: 800px;
+.reg-block {
+    min-height: 550px;
+    width: 100%;
+    max-width: 800px; /* ИСПРАВЛЕНО: вместо жестких 800px делаем блок резиновым */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     border-radius: 7px;
     padding: 50px;
-
     background-color: #D9D9D9;
+    gap: 20px; /* Добавлено: аккуратные отступы между элементами внутри */
 }
 
-.input-name, .input-password, .input-birthdate, .input-email, .input-phone{
+/* Объединяем все однотипные инпуты, включая новые поля компании и города */
+.input--name, .input--password, .input--birthdate, .input--email, 
+.input--phone, .input--company, .input--city, .input--categories {
     width: 100%;
     max-width: 500px;
     font-size: 20px;
     padding: 13px 20px;
     border: 1px solid black;
     border-radius: 7px;
+    background-color: #fff;
 }
 
-.reg-enter{
+/* Специфические настройки только для текстового поля категорий */
+.input--categories {
+    min-height: 100px;
+    resize:none ; /* Разрешаем пользователю растягивать поле только по вертикали */
+}
+
+.reg-enter {
     width: 100%;
     max-width: 250px;
     padding: 10px;
@@ -43,73 +53,61 @@ main{
     border: 0;
     border-radius: 7px;
     background: #C5DAE6;
-    transition: all 0.3s;
-}
-
-.reg-enter:hover{
-    background: #c5dae671;
+    transition: all 0.3s ease;
     cursor: pointer;
-    transition: all 0.3s;
 }
 
-.error-reg{
+.reg-enter:hover {
+    background: #c5dae671;
+}
+
+.error-reg {
     color: red;
+    font-size: 16px;
+    margin-top: 5px;
 }
 
+/* АДАПТИВНОСТЬ (МЕДИА-ЗАПРОСЫ) */
 
-
-
-@media screen and (max-device-width:1100px), screen and (max-width:1100px) {
-
-
+@media screen and (max-width: 950px) {
+    /* Если у вас есть .login-block, пусть он тоже будет адаптивным */
+    .login-block {
+        width: 100%;
+        max-width: 700px;
+    }
 }
 
-@media screen and (max-device-width:950px), screen and (max-width:950px) {
-
-    .login-block{
-        width: 700px;
+@media screen and (max-width: 870px) {
+    .reg-block {
+        padding: 40px 30px;
+        /* ИСПРАВЛЕНО: удалена жесткая высота height: 500px, блок сам подстроится под инпуты */
     }
-
 }
 
-@media screen and (max-device-width:870px), screen and (max-width:870px) {
-   
-    .reg-block{
-        height: 500px;
-        width: 500px;
-        margin: 0 20px;
+@media screen and (max-width: 550px) {
+    main {
+        padding: 20px 10px;
     }
 
-    .reg-enter{
-        max-width: 100%;
+    .reg-block {
+        padding: 30px 20px;
+        /* ИСПРАВЛЕНО: убрана жесткая высота 350px, иначе инпуты вылезут наружу */
     }
 
-}
-
-@media screen and (max-device-width:550px), screen and (max-width:550px) {
-    
-    main{
-        height: 80%;
+    .reg-block h1 {
+        font-size: 24px;
+        text-align: center;
     }
 
-    .reg-block{
-        width: 300px;
-        height: 350px;
-        margin: 0 20px;
-        padding: 30px;
+    /* ИСПРАВЛЕНО: возвращены правильные BEM-названия классов с двойным дефисом */
+    .input--name, .input--password, .input--birthdate, .input--email, 
+    .input--phone, .input--company, .input--city, .input--categories {
+        font-size: 16px;
+        padding: 10px 15px;
     }
 
-    .reg-block h1{
-        font-size: 20px;
+    .reg-enter {
+        font-size: 18px;
+        max-width: 100%; /* Кнопка растянется на всю ширину на мобилках */
     }
-
-    .input-name, .input-password, .input-birthdate, .input-email, .input-phone{
-        font-size: 15px;
-        padding: 10px 20px;
-    }
-
-    .reg-enter{
-        font-size: 15px;
-    }
-
 }
